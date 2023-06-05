@@ -1,0 +1,23 @@
+{
+"generic":                     "\uf22d",
+"chromium":                    "\uf268",
+"firefox":                     "\uf269",
+"code-oss":                    "\uf121",
+"foot":                        "\uf120",
+"transmission-remote-gtk":     "\uf076",
+"play-radio":                  "\uf8d7",
+"yewtube":                     "\uf167",
+"weather":                     "\uf185",
+"gsimplecal":                  "\uf133",
+"taskwarrior":                 "\uf274",
+"protonvpn":                   "\uf023",
+"btop":                        "\uf085",
+"org.speedcrunch.speedcrunch": "\uf1ec",
+"soffice":                     "\ue51d",
+"libreoffice-startcenter":     "\ue51d",
+"libreoffice-calc":            "\uf1c3",
+"libreoffice-writer":          "\uf1c2",
+"libreoffice-impress":         "\uf1c5",
+"swayimg":                     "\uf03e",
+"upgrade":                     "\uf0ad"
+}
