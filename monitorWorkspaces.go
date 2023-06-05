@@ -6,6 +6,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"i3status/utils"
 	"os"
 	"os/exec"
@@ -75,15 +76,14 @@ func main() {
 		Con    Container `json:"container"`
 	}
 
-	// read apps icon file
-	// userHome, err := os.UserHomeDir()
-	// if err != nil {
-	// 	panic("ERROR: Unable to get Home user directory.")
-	// }
+	// read apps icon file from argument
+	if len(os.Args) < 2 {
+		panic("Path for icon file was not passsed as argument")
+	}
 
-	// appsIconFile, err := os.ReadFile(userHome + "/.config/i3status/apps_icon.json")
-	appsIconFile, err := os.ReadFile("./apps_icon.json")
+	appsIconFile, err := os.ReadFile(os.Args[1])
 	if err != nil {
+		fmt.Println("error reading apps_icon.json")
 		appsName["generic"] = "\uf22d"
 	}
 	json.Unmarshal(appsIconFile, &appsName)
