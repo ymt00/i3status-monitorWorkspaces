@@ -76,12 +76,13 @@ func main() {
 	}
 
 	// read apps icon file
-	userHome, err := os.UserHomeDir()
-	if err != nil {
-		panic("ERROR: Unable to get Home user directory.")
-	}
+	// userHome, err := os.UserHomeDir()
+	// if err != nil {
+	// 	panic("ERROR: Unable to get Home user directory.")
+	// }
 
-	appsIconFile, err := os.ReadFile(userHome + "/.config/i3status/apps_icon.json")
+	// appsIconFile, err := os.ReadFile(userHome + "/.config/i3status/apps_icon.json")
+	appsIconFile, err := os.ReadFile("./apps_icon.json")
 	if err != nil {
 		appsName["generic"] = "\uf22d"
 	}
