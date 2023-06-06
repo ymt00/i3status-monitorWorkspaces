@@ -1,6 +1,6 @@
 // change workspace number to number and icon
 // according to the active app running on the workspace
-// get the icon from $HOME/.config/i3status/apps_icon.json
+// pass icon file path as parameter
 package main
 
 import (
