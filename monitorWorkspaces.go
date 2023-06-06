@@ -29,7 +29,8 @@ func getFocusedWorkspace() (int, string) {
 }
 
 func getFocusIDWorkspace(id int) (int, string) {
-	for _, workspace := range utils.SwayMsgWorkspaces() {
+	workspaces := utils.SwayMsgWorkspaces()
+	for _, workspace := range workspaces {
 		for _, wid := range workspace.Focus {
 			if wid == id {
 				return workspace.Num, workspace.Name
@@ -37,7 +38,7 @@ func getFocusIDWorkspace(id int) (int, string) {
 		}
 	}
 
-	return 1, "1"
+	return getFocusedWorkspace()
 }
 
 func iconAppName(name string) string {
@@ -83,7 +84,7 @@ func main() {
 
 	appsIconFile, err := os.ReadFile(os.Args[1])
 	if err != nil {
-		fmt.Println("error reading apps_icon.json")
+		// error reading file icon, set generic icon only
 		appsName["generic"] = "\uf22d"
 	}
 	json.Unmarshal(appsIconFile, &appsName)
@@ -107,10 +108,11 @@ func main() {
 		change := window.Change
 
 		// TODO: check if I need to add the "floating" event
-		if change == "move" || change == "new" || change == "title" || change == "focus" {
+		fmt.Printf("Change event: %s\n", change)
+		// if change == "move" || change == "new" || change == "focus" || change == "title" || change == "floating" {
+		if change == "focus" {
 			num, name := getFocusIDWorkspace(window.Con.ID)
 			renameWorkspace(num, name, window.Con.AppID)
-
 		} else if change == "close" {
 			num, name := getFocusedWorkspace()
 			renameWorkspace(num, name, "")
