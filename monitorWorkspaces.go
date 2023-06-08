@@ -6,7 +6,6 @@ package main
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"i3status/utils"
 	"os"
 	"os/exec"
@@ -107,9 +106,6 @@ func main() {
 
 		change := window.Change
 
-		// TODO: check if I need to add the "floating" event
-		fmt.Printf("Change event: %s\n", change)
-		// if change == "move" || change == "new" || change == "focus" || change == "title" || change == "floating" {
 		if change == "focus" {
 			num, name := getFocusIDWorkspace(window.Con.ID)
 			renameWorkspace(num, name, window.Con.AppID)
