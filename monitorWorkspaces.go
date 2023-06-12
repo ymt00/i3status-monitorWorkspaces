@@ -6,6 +6,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"i3status/utils"
 	"os"
 	"os/exec"
@@ -40,35 +41,27 @@ func getFocusIDWorkspace(id int) (int, string) {
 	return getFocusedWorkspace()
 }
 
-func iconAppName(name string) string {
-	name = strings.ReplaceAll(strings.ToLower(name), "_", " ")
-
-	bname := appsName[name]
-	if bname == "" {
-		before, _, found := strings.Cut(name, " ")
-		if !found || appsName[before] == "" {
-			return appsName["generic"]
-		}
-
-		return appsName[before]
+func iconAppName(appID string) string {
+	fmt.Printf("AppID: %s\n\n", appID)
+	icon := appsName[strings.ToLower(appID)]
+	if icon == "" {
+		return appsName["generic"]
 	}
-	return bname
+
+	return icon
 }
 
-func renameWorkspace(num int, oldName string, currName string) {
-	if currName != "" {
-		currName = iconAppName(currName)
-	}
-	currName = strconv.Itoa(num) + " " + currName
-	exec.Command("swaymsg", "rename", "workspace", oldName, "to", currName).Run()
+func renameWorkspace(num int, oldName string, name string) {
+	name = strconv.Itoa(num) + " " + name
+	exec.Command("swaymsg", "rename", "workspace", oldName, "to", name).Run()
 }
 
 func main() {
 
 	type Container struct {
 		AppID string `json:"app_id"`
-		Name  string `json:"name"`
-		ID    int    `json:"id"`
+		// Name  string `json:"name"`
+		ID int `json:"id"`
 	}
 
 	type Window struct {
@@ -108,7 +101,8 @@ func main() {
 
 		if change == "focus" {
 			num, name := getFocusIDWorkspace(window.Con.ID)
-			renameWorkspace(num, name, window.Con.AppID)
+			icon := iconAppName(window.Con.AppID)
+			renameWorkspace(num, name, icon)
 		} else if change == "close" {
 			num, name := getFocusedWorkspace()
 			renameWorkspace(num, name, "")
